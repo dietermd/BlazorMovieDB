@@ -1,0 +1,9 @@
+﻿@foreach (var genre in Genres)
+{
+	<div class="border-2 border-white rounded-lg px-2">@genre</div>
+}
+
+@code {
+	[Parameter]
+	public required String[] Genres { get; set; }
+}

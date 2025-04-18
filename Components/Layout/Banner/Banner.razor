@@ -1,0 +1,29 @@
+﻿@using BlazorMovieDB.Models
+@using BlazorMovieDB.Services
+@using BlazorMovieDB.Utils
+@inject MovieDBService movieDBService;
+
+@if (movieList.Count == 0) {
+    <BannerLoading />
+}
+else
+{
+    <swiper-container pagination="true" pagination-dynamic-bullets="true" class="banner-swiper h-[600px] w-full rounded-b-lg">
+        @for (int i = 0; i < movieList.Count; i++)
+        {
+            <swiper-slide>
+                <MovieInfo Movie="@movieList[i]" Index="@i" />
+                <MovieImageCover BackdropPath="@movieList[i].BackdropPath" />
+            </swiper-slide>
+        }
+    </swiper-container>
+}
+
+@code {
+    private List<Movie> movieList = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        movieList = await movieDBService.GetMoviesAsync(Utils.MovieListTypes.Popular);
+    }
+}

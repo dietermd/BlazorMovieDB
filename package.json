@@ -5,8 +5,8 @@
         "tailwindcss": "^4.1.3"
     },
     "scripts": {
-        "build:css": "npx @tailwindcss/cli -i Styles/input.css -o wwwroot/css/moviedb.css",
-        "build:js": "webpack ./Scripts/input.js --output-path wwwroot/js --output-filename moviedb.bundle.js"
+        "build:css": "npx @tailwindcss/cli -i Inputs/input.css -o wwwroot/css/moviedb.css",
+        "build:js": "webpack ./Inputs/input.js --output-path wwwroot/js --output-filename moviedb.bundle.js"
     },
     "devDependencies": {
         "webpack": "^5.99.1",

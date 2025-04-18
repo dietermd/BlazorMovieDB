@@ -1,0 +1,17 @@
+﻿@using BlazorMovieDB.Utils
+
+<div class="banner-image-cover relative h-full w-full md:w-3/4 float-right">
+    <div class="banner-inner-image-cover h-full w-full">
+        <img src="@GetCoverImage()" class="absolute h-full w-full object-cover mix-blend-overlay" alt="..." />
+    </div>
+</div>
+
+@code {
+	[Parameter]
+    public required string BackdropPath { get; set; }
+
+    private string GetCoverImage()
+    {
+        return Utils.GetImageUrl(BackdropPath, Utils.ImageSizes.Original);
+    }
+}

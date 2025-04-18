@@ -1,5 +1,6 @@
 using BlazorMovieDB.Components;
 using BlazorMovieDB.Services;
+using BlazorMovieDB.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,7 @@ builder.Services.AddHttpClient<MovieDBService>(client =>
 {
     client.BaseAddress = new Uri("https://api.themoviedb.org/3/");
     client.DefaultRequestHeaders.Add("Accept", "application/json");
-    client.DefaultRequestHeaders.Add("Authorization", "Bearer XXX");
+    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {Token.BearerToken}");
 })
 .ConfigurePrimaryHttpMessageHandler(() =>
 {
