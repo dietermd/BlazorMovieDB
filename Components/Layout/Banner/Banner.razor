@@ -12,8 +12,8 @@ else
         @for (int i = 0; i < movieList.Count; i++)
         {
             <swiper-slide>
-                <MovieInfo Movie="@movieList[i]" Index="@i" />
-                <MovieImageCover BackdropPath="@movieList[i].BackdropPath" />
+                <MovieInfo Movie=@movieList[i] Index=@i />
+                <MovieImageCover BackdropPath=@movieList[i].BackdropPath />
             </swiper-slide>
         }
     </swiper-container>

@@ -1,4 +1,6 @@
-﻿namespace BlazorMovieDB.Utils
+﻿using BlazorMovieDB.Models;
+
+namespace BlazorMovieDB.Utils
 {
     public class Utils
     {
@@ -21,6 +23,13 @@
         public static string GetImageUrl(string imagePath, string size)
         {
             return $"{ImagesBaseURL}{size}{imagePath}";
+        }
+
+        public static string GetFormatedDate(string date)
+        {
+            return string.IsNullOrWhiteSpace(date) ?
+                string.Empty :
+                DateTime.Parse(date).ToString("MMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture);
         }
 
         public static readonly Dictionary<int, string> GenresDictionary = new()

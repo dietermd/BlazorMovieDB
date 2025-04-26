@@ -7,7 +7,7 @@
 </div>
 
 @code {
-	[Parameter]
+	[Parameter, EditorRequired]
     public required string BackdropPath { get; set; }
 
     private string GetCoverImage()

@@ -1,0 +1,82 @@
+﻿@using BlazorMovieDB.Models
+@using BlazorMovieDB.Services
+@inject MovieDBService movieDBService;
+
+<div class="basis-8/12 h-full hidden md:flex justify-center items-center">
+    <div class="w-5/6 lg:w-2/3 xl:w-3/5 h-1/2 flex justify-end items-center">
+        <input type="text" 
+        class="w-full h-full bg-transparent border-2 border-white rounded-lg outline-none text-center text-white placeholder:text-white/50"
+        placeholder="Search movie..."
+        @bind="SearchText" @bind:event="oninput"
+        />
+        <div class="absolute mr-2" @onclick="ResetSearch">
+            <SearchSVG HasMovies=@HasMovies />
+        </div>
+    </div>
+</div>
+
+<div class="basis-8/12 h-full md:hidden flex justify-end items-center cursor-pointer order-last" @onclick="ResetSearch">
+    <div class="flex justify-center items-center w-[42px] h-1/2 bg-transparent border-2 border-white rounded-lg outline-none">
+        <SearchSVG HasMovies=@HasMovies />
+    </div>          
+</div>
+
+@if (HasMovies)
+{
+    <SearchModal Movies=@Movies />
+}
+
+@code {
+    private string searchText = string.Empty;
+    private List<Movie> Movies = [];
+    private bool HasMovies => Movies.Count > 0;
+
+    private CancellationTokenSource? debounceCts;
+
+    private string SearchText
+    {
+        get => searchText;
+        set
+        {
+            searchText = value;
+            _ = DebounceSearchAsync();
+        }
+    }
+
+    private void ResetSearch()
+    {
+        SearchText = string.Empty;
+    }
+
+    private async Task DebounceSearchAsync(bool delay = true)
+    {
+        // Cancel the previous token (if any)
+        debounceCts?.Cancel();
+        debounceCts?.Dispose();
+
+        // Create a new CTS
+        debounceCts = new CancellationTokenSource();
+
+        try
+        {
+            // Wait 500ms before proceeding
+            await Task.Delay(500, debounceCts.Token);
+
+            // Only proceed if there's still text to search
+            if (!string.IsNullOrWhiteSpace(searchText))
+            {
+                var encodedQuery = Uri.EscapeDataString(searchText);
+                Movies = await movieDBService.SearchMoviesAsync(searchText, debounceCts.Token);
+            }
+            else
+            {
+                Movies = [];
+            }
+            StateHasChanged();
+        }
+        catch (TaskCanceledException)
+        {
+            // Expected if the user typed again before 500ms
+        }
+    }
+}

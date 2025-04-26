@@ -27,18 +27,17 @@
 </div>
 
 @code {
-    [Parameter]
+    [Parameter, EditorRequired]
     public required Movie Movie { get; set; }
 
-    [Parameter]
+    [Parameter, EditorRequired]
     public required int Index { get; set; }
 
     public string MoviePageLink => $"/movie/{Movie.Id}";
 
 	private string PupularTitle => $"#{Index + 1} Popular";
 
-    private string GetFormatedReleaseDate => DateTime.Parse(Movie.ReleaseDate)
-        .ToString("MMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture);
+    private string GetFormatedReleaseDate => Utils.GetFormatedDate(Movie.ReleaseDate);
     
     private string[] Genres => Movie.GenreIds
         .Select(x => Utils.GenresDictionary.TryGetValue(x, out string? genre) ? genre : string.Empty)
