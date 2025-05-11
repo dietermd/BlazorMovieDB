@@ -1,0 +1,34 @@
+﻿@using BlazorMovieDB.Models
+@using BlazorMovieDB.Services
+@using BlazorMovieDB.Utils
+@inject MovieDBService movieDBService;
+
+<swiper-container slides-per-view="auto" space-between="30" free-mode="true" pagination="true" pagination-dynamic-bullets="true" class="w-full h-[350px]">
+
+    @if (Movies.Count == 0)
+    {
+        <MovieSliderLoading />
+    }
+    else
+    {
+        foreach (var movie in Movies)
+        {
+            <swiper-slide class="w-auto inline-block">
+                <MovieCard Movie=movie />
+            </swiper-slide>
+        }        
+    }
+
+</swiper-container>
+
+@code {
+    [Parameter, EditorRequired]
+	public required string MovieListType { get; set; }
+
+    private List<Movie> Movies = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        Movies = await movieDBService.GetMoviesAsync(Utils.MovieListTypes.NowPlaying);
+    }
+}

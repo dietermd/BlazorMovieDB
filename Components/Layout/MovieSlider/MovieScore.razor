@@ -1,0 +1,38 @@
+﻿<svg height=@Size width=@Size class="flex justify-center align-middle stroke-red-600">
+    <circle class="origin-center -rotate-90"
+    stroke-width=@StrokeWidth
+    stroke-dasharray=@StrokeDasharray
+    stroke-dashoffset=@StrokeDashoffset
+    fill="transparent"
+    r=@Radius
+    cx=@Center
+    cy=@Center />
+    <text font-size=@FontSize
+    x=@Center
+    y=@Center
+    text-anchor="middle"
+    stroke-width="1px"
+    alignment-baseline="middle">
+        @RoundedScore
+    </text>
+</svg>
+
+
+@code {
+    [Parameter, EditorRequired]
+    public required double Size { get; set; }
+
+    [Parameter, EditorRequired]
+    public required double StrokeWidth { get; set; }
+
+    [Parameter, EditorRequired]
+    public required double Score { get; set; }
+
+    private double RoundedScore => Math.Round(Score, 1);
+    private double Center => Size / 2;
+	private double Radius => Center - StrokeWidth / 2;
+	private double Circumference => 2 * Math.PI * Radius;
+	private string StrokeDasharray => $"{Circumference} {Circumference}";
+    private double StrokeDashoffset => Circumference - (RoundedScore / 10) * Circumference;
+	private string FontSize => $"{Radius * 0.7}px";
+}

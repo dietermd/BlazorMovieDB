@@ -1,5 +1,14 @@
 ﻿@page "/"
 @using BlazorMovieDB.Components.Layout.Banner
+@using BlazorMovieDB.Components.Layout.MovieSlider
+@using BlazorMovieDB.Utils
 
 <PageTitle>Home</PageTitle>
 <Banner />
+
+<div class="flex flex-col mt-3 px-4 gap-5">
+    <div class="flex flex-col gap-4">
+        <div class="text-white font-bold text-2xl">Now Playing</div>
+        <MovieSlider MovieListType=@Utils.MovieListTypes.NowPlaying />
+    </div>
+</div>

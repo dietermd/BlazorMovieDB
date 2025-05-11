@@ -5,9 +5,12 @@
         <div class="flex flex-col md:w-5/6 lg:w-2/3 xl:w-3/5 max-h-[70vh] overflow-auto bg-white rounded-lg">
             @foreach (var movie in Movies)
             {
-                <div class="group flex gap-2 h-[158px] p-1 cursor-pointer">
-                    <SearchModalMovieCard Movie=@movie />
-                </div>  
+                <NavLink href=@($"/movie/{movie.Id}")>
+                    <div class="group flex gap-2 h-[158px] p-1">
+                        <SearchModalMovieCard Movie=@movie />
+                    </div>
+                </NavLink>
+                
             }
         </div>          
     </div>        

@@ -1,0 +1,25 @@
+﻿@using BlazorMovieDB.Models
+@using BlazorMovieDB.Utils
+
+<NavLink href=@($"/movie/{Movie.Id}") class="flex flex-col w-[150px]">
+    <div class="h-[225px] relative">
+        <img src=@PosterUrl class="w-full rounded-lg" />
+        <div class="absolute -bottom-3 -right-3">
+            @* <MovieScore size={46} strokeWidth={2} score={props.vote_average} /> *@
+            @* <div>@Movie.VoteAverage</div> *@
+            <MovieScore Size=46 StrokeWidth=2 Score=Movie.VoteAverage />
+        </div>
+    </div>
+    <div class="mt-2 px-[10px] text-sm text-center">
+        <div class="font-bold text-white">@Movie.Title</div>
+        <div class="text-white/50">@FormatedReleaseDate</div>
+    </div>
+</NavLink>
+
+@code {
+    [Parameter, EditorRequired]
+    public required Movie Movie { get; set; }
+
+    private string PosterUrl => Utils.GetImageUrl(Movie.PosterPath, Utils.ImageSizes.W500);
+    private string FormatedReleaseDate => Utils.GetFormatedDate(Movie.ReleaseDate);
+}
