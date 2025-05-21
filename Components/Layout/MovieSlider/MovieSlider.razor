@@ -29,6 +29,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Movies = await movieDBService.GetMoviesAsync(Utils.MovieListTypes.NowPlaying);
+        Movies = await movieDBService.GetMoviesAsync(MovieListType);
     }
 }
