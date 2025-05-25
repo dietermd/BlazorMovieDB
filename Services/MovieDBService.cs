@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Threading;
 using BlazorMovieDB.Models;
 using Microsoft.AspNetCore.WebUtilities;
 
@@ -36,6 +37,23 @@ namespace BlazorMovieDB.Services
             var result = await response.Content.ReadAsStringAsync(cancellationToken);
             var jsonNode = JsonNode.Parse(result);
             return jsonNode?["results"].Deserialize<List<Movie>>() ?? [];
+        }
+
+        public async Task<MovieDetails?> GetMovieDetails(int movieId, CancellationToken cancellationToken)
+        {
+            var queryParams = new Dictionary<string, string?>
+            {
+                { "append_to_response", "credits,videos" }
+            };
+            var url = QueryHelpers.AddQueryString($"movie/{movieId}", queryParams);
+            var response = await _httpClient.GetAsync(url, cancellationToken);
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            var result = await response.Content.ReadAsStringAsync(cancellationToken);
+            var movieDetails = JsonSerializer.Deserialize<MovieDetails>(result);
+            return movieDetails;
         }
     }
 }
