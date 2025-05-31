@@ -55,5 +55,17 @@ namespace BlazorMovieDB.Services
             var movieDetails = JsonSerializer.Deserialize<MovieDetails>(result);
             return movieDetails;
         }
+
+        public async Task<List<Person>> GetPopularPeople(CancellationToken cancellationToken)
+        {
+            var response = await _httpClient.GetAsync($"person/popular", cancellationToken);
+            if (!response.IsSuccessStatusCode)
+            {
+                return [];
+            }
+            var result = await response.Content.ReadAsStringAsync(cancellationToken);
+            var jsonNode = JsonNode.Parse(result);
+            return jsonNode?["results"].Deserialize<List<Person>>() ?? [];
+        }
     }
 }
