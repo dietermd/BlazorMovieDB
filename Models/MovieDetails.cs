@@ -17,7 +17,7 @@ namespace BlazorMovieDB.Models
         public int Budget { get; set; }
 
         [JsonPropertyName("genres")]
-        public List<Genre> Genres { get; set; } = new();
+        public List<Genre> Genres { get; set; } = [];
 
         [JsonPropertyName("homepage")]
         public string Homepage { get; set; } = null!;

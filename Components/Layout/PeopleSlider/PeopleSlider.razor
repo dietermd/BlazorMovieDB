@@ -1,0 +1,38 @@
+﻿@using BlazorMovieDB.Components.Layout.PeopleSlider.Loading
+@using BlazorMovieDB.Models
+@using BlazorMovieDB.Services
+@inject MovieDBService movieDBService;
+
+<swiper-container slides-per-view="auto" space-between="30" free-mode="true" pagination="true" pagination-dynamic-bullets="true" class="w-full h-[350px]">
+	@if (PeopleList.Count == 0)
+	{
+		<PeopleSliderLoading />
+	}
+	else
+	{
+		foreach (var person in PeopleList)
+		{
+			<swiper-slide class="w-auto inline-block">
+				<PeopleCard Id="@person.Id"
+							Name="@person.Name"
+							ProfilePath="@person.ProfilePath" />
+			</swiper-slide>
+		}
+	}
+</swiper-container>
+
+@code {
+	private List<Person> PeopleList = [];
+	private CancellationTokenSource cts = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		PeopleList = await movieDBService.GetPopularPeople(cts.Token);
+	}
+
+	public void Dispose()
+	{
+		cts.Cancel();
+		cts.Dispose();
+	}
+}

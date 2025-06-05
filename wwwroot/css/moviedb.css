@@ -533,6 +533,9 @@
       color: color-mix(in oklab, var(--color-white) 50%, transparent);
     }
   }
+  .italic {
+    font-style: italic;
+  }
   .mix-blend-overlay {
     mix-blend-mode: overlay;
   }

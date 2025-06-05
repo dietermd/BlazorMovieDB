@@ -10,14 +10,14 @@ namespace BlazorMovieDB.Services
     {
         private readonly HttpClient _httpClient =  httpClient;
 
-        public async Task<List<Movie>> GetMoviesAsync(string listType)
+        public async Task<List<Movie>> GetMoviesAsync(string listType, CancellationToken cancellationToken)
         {
-            var response = await _httpClient.GetAsync($"movie/{listType}");
+            var response = await _httpClient.GetAsync($"movie/{listType}", cancellationToken);
             if (!response.IsSuccessStatusCode)
             {
                 return [];
             }
-            var result = await response.Content.ReadAsStringAsync();
+            var result = await response.Content.ReadAsStringAsync(cancellationToken);
             var jsonNode = JsonNode.Parse(result);
             return jsonNode?["results"].Deserialize<List<Movie>>() ?? [];
         }

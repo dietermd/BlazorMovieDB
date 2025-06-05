@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using BlazorMovieDB.Components.Layout.Banner
 @using BlazorMovieDB.Components.Layout.MovieSlider
+@using BlazorMovieDB.Components.Layout.PeopleSlider
 @using BlazorMovieDB.Utils
 
 <PageTitle>Home</PageTitle>
@@ -18,5 +19,9 @@
     <div class="flex flex-col gap-4">
         <div class="text-white font-bold text-2xl">Top Rated</div>
         <MovieSlider MovieListType=@Utils.MovieListTypes.TopRated />
+    </div>
+    <div class="flex flex-col gap-4">
+        <div class="text-white font-bold text-2xl">Popular People</div>
+        <PeopleSlider />
     </div>
 </div>

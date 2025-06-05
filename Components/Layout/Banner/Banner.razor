@@ -22,9 +22,16 @@ else
 
 @code {
     private List<Movie> movieList = [];
+    private CancellationTokenSource cts = new();
 
     protected override async Task OnInitializedAsync()
     {
-        movieList = await movieDBService.GetMoviesAsync(Utils.MovieListTypes.Popular);
+        movieList = await movieDBService.GetMoviesAsync(Utils.MovieListTypes.Popular, cts.Token);
+    }
+
+    public void Dispose()
+    {
+        cts.Cancel();
+        cts.Dispose();
     }
 }

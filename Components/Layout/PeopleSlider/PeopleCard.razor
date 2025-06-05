@@ -1,0 +1,29 @@
+﻿@using BlazorMovieDB.Utils
+
+<NavLink href=@($"/person/{Id}") class="flex flex-col w-[150px]">
+	<div class="h-[225px] relative">
+		<img src=@ProfileUrl class="w-full rounded-lg" />
+	</div>
+	<div class="mt-2 px-[10px] text-sm text-center">
+		<div class="font-bold text-white">@Name</div>
+		@if (!string.IsNullOrEmpty(Character))
+		{
+			<div class="text-white italic">@Character</div>
+		}
+	</div>
+</NavLink>
+
+@code {
+	[Parameter, EditorRequired]
+	public required int Id { get; set; }
+
+	[Parameter, EditorRequired]
+	public required string Name { get; set; }
+
+	[Parameter, EditorRequired]
+	public required string ProfilePath { get; set; }
+	private string ProfileUrl => Utils.GetImageUrl(ProfilePath, Utils.ImageSizes.W500);
+
+	[Parameter]
+	public string? Character { get; set; }
+}
