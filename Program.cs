@@ -1,8 +1,13 @@
+using System.Globalization;
 using BlazorMovieDB.Components;
 using BlazorMovieDB.Services;
 using BlazorMovieDB.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var cultureInfo = new CultureInfo("en-US");
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

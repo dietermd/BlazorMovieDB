@@ -1,20 +1,28 @@
 ﻿@page "/movie/{MovieId:int}"
+@using BlazorMovieDB.Components.Pages.Movie.Loading
 @using BlazorMovieDB.Models
 @using BlazorMovieDB.Services
 @inject MovieDBService movieDBService;
 
-<h3>MoviePage - Id: @MovieId</h3>
+@if (MovieDetails is null)
+{
+    <MoviePageLoading />
+}
+else
+{
+	<MovieDetailsBanner MovieDetails="@MovieDetails" />
+}
 
 @code {
 	[Parameter, EditorRequired]
 	public int MovieId { get; set; }
 
-    private MovieDetails? movieDetails = null;
+    private MovieDetails? MovieDetails = null;
     private CancellationTokenSource cts = new();
 
     protected override async Task OnInitializedAsync()
     {
-        movieDetails = await movieDBService.GetMovieDetails(MovieId, cts.Token);
+        MovieDetails = await movieDBService.GetMovieDetails(MovieId, cts.Token);
     }
 
     public void Dispose()
