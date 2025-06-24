@@ -11,6 +11,10 @@
 else
 {
 	<MovieDetailsBanner MovieDetails="@MovieDetails" />
+
+    <div class="flex flex-col mt-3 px-4 gap-5">
+        <MovieTrailerSlider Videos="@MovieDetails.Videos" />
+    </div>
 }
 
 @code {
