@@ -1,0 +1,23 @@
+﻿@using BlazorMovieDB.Components.Layout.PeopleSlider
+@using BlazorMovieDB.Models
+<div class="flex flex-col gap-4">
+	<div class="text-white font-bold text-2xl">Cast</div>
+
+	<swiper-container slides-per-view="auto" space-between="30" free-mode="true" pagination="true" pagination-clickable="true" class="w-full h-[350px]">
+		@foreach (var person in Cast)
+		{
+			<swiper-slide class="w-auto inline-block">
+				<PeopleCard Id="@person.Id" ProfilePath="@person.ProfilePath" Name="@person.Name" Character="@person.Character" />
+			</swiper-slide>
+		}
+	</swiper-container>
+</div>
+
+@code {
+	[Parameter, EditorRequired]
+	public required Credits Credits { get; set;  }
+
+	private List<Cast> Cast => Credits.Cast
+		.Where(x => !string.IsNullOrWhiteSpace(x.ProfilePath))
+		.ToList();
+}
