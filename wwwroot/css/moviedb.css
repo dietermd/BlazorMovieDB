@@ -299,6 +299,9 @@
   .h-\[225px\] {
     height: 225px;
   }
+  .h-\[315px\] {
+    height: 315px;
+  }
   .h-\[350px\] {
     height: 350px;
   }
@@ -358,6 +361,9 @@
   }
   .w-\[250px\] {
     width: 250px;
+  }
+  .w-\[560px\] {
+    width: 560px;
   }
   .w-auto {
     width: auto;

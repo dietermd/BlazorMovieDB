@@ -1,0 +1,19 @@
+﻿<div class="flex flex-col mt-3 px-4 gap-5">
+    <div class="flex flex-col gap-4">
+        <div class="text-white font-bold text-2xl">Trailers</div>
+        <swiper-container slides-per-view="auto" space-between="30" free-mode="true" pagination="true" pagination-clickable="true" class="w-full h-[350px]">
+            @for (int i = 0; i < 3; i++)
+            {
+                <swiper-slide class="w-auto inline-block">
+                    <div class="w-[560px] animate-pulse">
+                        <div class="w-full h-[315px] rounded-lg bg-slate-300"></div>
+                    </div>
+                </swiper-slide>
+            }
+        </swiper-container>
+    </div>
+</div> 
+
+@code {
+
+}
